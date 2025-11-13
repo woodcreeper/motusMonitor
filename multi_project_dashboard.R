@@ -8,8 +8,24 @@ library(lubridate)
 Sys.setenv(TZ = "UTC")
 
 # ========== CONFIGURATION ==========
-# Should match your multi_project_monitor.R
-PROJECTS <- c(675, 964, 1033, 1041, 1048) # Add more: c(675, 676, 677, etc.)
+# Projects are read from motus_config.env
+config_file <- "motus_config.env"
+if (file.exists(config_file)) {
+  source_lines <- readLines(config_file)
+  projects_line <- grep("^PROJECTS=", source_lines, value = TRUE)
+  if (length(projects_line) > 0) {
+    projects_str <- sub("^PROJECTS=", "", projects_line)
+    projects_str <- gsub(" ", "", projects_str)  # Remove spaces
+    PROJECTS <- as.integer(unlist(strsplit(projects_str, ",")))
+    cat("Loaded", length(PROJECTS), "projects from config:", paste(PROJECTS, collapse=", "), "\n")
+  } else {
+    stop("PROJECTS not found in motus_config.env. Please configure it.")
+  }
+} else {
+  stop("Configuration file 'motus_config.env' not found.\nPlease copy motus_config.env.example to motus_config.env and configure it.")
+}
+
+# Base directory for all project data
 BASE_DIR <- "~/Dropbox/motusMonitor/motus_data_multi"
 
 # ========== FUNCTIONS ==========
