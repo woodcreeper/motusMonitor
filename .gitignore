@@ -1,0 +1,36 @@
+cd ~/Dropbox/motusMonitor
+nano .gitignore
+```
+
+**Copy and paste this entire content:**
+```
+# Sensitive configuration
+motus_config.env
+
+# Database files (too large and project-specific)
+*.motus
+motus_data/
+motus_data_multi/
+
+# Log files
+*.log
+
+# Generated summaries
+summary_*.csv
+
+# R session data
+.Rhistory
+.RData
+.Rproj.user
+*.rds
+
+# macOS
+.DS_Store
+
+# Temporary files
+*.tmp
+*~
+
+# Credentials
+.env
+credentials.txt
