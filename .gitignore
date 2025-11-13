@@ -1,9 +1,3 @@
-cd ~/Dropbox/motusMonitor
-nano .gitignore
-```
-
-**Copy and paste this entire content:**
-```
 # Sensitive configuration
 motus_config.env
 
